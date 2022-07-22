@@ -1,0 +1,30 @@
+<div class="d-flex justify-content-center py-2 mb-3">
+  <div class="col-12">
+    <div class="d-flex justify-content-center">
+      <button type="button" class="btn btn-dark btn-sm mt-2" (click)="onSearchClick()">Torna alla ricerca</button>
+    </div>
+    <div class="details__map mt-2">
+      <app-aws-map-viewer [pins]="mapPin | async" [zoomToPins]="true" [zoom]="12"></app-aws-map-viewer>
+    </div>
+    <div class="details__name mt-4 text-center">{{ (place$ | async)?.building }}</div>
+    <div *ngIf="(place$ | async)?.streetName" class="details__street text-center">
+      {{ street | async }}
+    </div>
+
+    <div *ngIf="(place$ | async)?.city" class="details__street text-center">
+      {{ city | async }}
+    </div>
+    <div class="details__description mt-3 text-center">
+      <strong>Numero parcheggi</strong>
+      <div>Totali: {{ (place$ | async)?.parkingSpots ? (place$ | async)?.parkingSpots : 0 }}</div>
+      <div>Disco orario: {{ (place$ | async)?.parkingDiskSpots ? (place$ | async)?.parkingDiskSpots : 0 }}</div>
+      <div>A pagamento: {{ (place$ | async)?.paidParkingSpots ? (place$ | async)?.paidParkingSpots : 0 }}</div>
+      <div>Liberi: {{ (place$ | async)?.freeParkingSpots ? (place$ | async)?.freeParkingSpots : 0 }}</div>
+      <div>Per disabili: {{ (place$ | async)?.disabledParkingSpots ? (place$ | async)?.disabledParkingSpots : 0 }}</div>
+    </div>
+    <div class="mt-2 mb-3 text-center details__info" *ngIf="(place$ | async)?.notes">
+      <strong>Informazioni</strong>
+      <div>{{ (place$ | async)?.notes }}</div>
+    </div>
+  </div>
+</div>
